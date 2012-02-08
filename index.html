@@ -67,33 +67,44 @@
       					event.preventDefault(); 
       					event.stopPropagation();
       					break;
-    				case "end":
-      					//---get the point touched---
-      					if (endfstouchY-startfstouchY > 10) {
-        					fY = fY + 50;
-      					} else if (endfstouchY-startfstouchY < -10) {
-        					fY = fY - 50;
-      					}
-      					if (fY > 0) { fY = 0; }
-      					if (fY < (-1*obj.offsetHeight + 50)) {
-        					fY = -1*obj.offsetHeight+50;
-      					}
-      					obj.style.webkitTransform = 'translateY(' + fY + 'px)';
-      					event.preventDefault(); 
-      					event.stopPropagation();
-      					break;
-    				default:
-      					event.preventDefault(); 
-      					event.stopPropagation();
-      					break;
-  				}
+					case "end":
+						//---get the point touched---
+						if (endfstouchY-startfstouchY > 10) {
+							fY = fY + 50;
+						} else if (endfstouchY-startfstouchY < -10) {
+							fY = fY - 50;
+						}
+						if (fY > 0) { fY = 0; }
+						if (fY < (-1*obj.offsetHeight + 50)) {
+							fY = -1*obj.offsetHeight+50;
+						}
+						obj.style.webkitTransform = 'translateY(' + fY + 'px)';
+						event.preventDefault(); 
+						event.stopPropagation();
+						break;
+					default:
+						event.preventDefault(); 
+						event.stopPropagation();
+						break;
+				}
 			}
 
 		</script>
+		<style>
+			#titlebar {
+				position:absolute;
+				background-color: red;
+				left:0px;
+				top: 0px;
+				width: 100%;
+				height:55px;
+				z-index:10;
+			}
+		</style>
 	</head>
 	<body onload="setup()" onorientationchange="setup()">
-		<div id="titlebar" ontouchstart="scrollOnContent(event)" ontouchmove="scrollOnContent(event)" ontouchend="scrollOnContent(event)" ontouchcancel="scrollOnContent(event)" style="position:absolute;background-color: blue;left:0px;top:0px;width:100%;height:55px;z-index:10;">
-			<br>TitleBar
+		<div id="titlebar" ontouchstart="scrollOnContent(event)" ontouchmove="scrollOnContent(event)" ontouchend="scrollOnContent(event)" ontouchcancel="scrollOnContent(event)">
+			<br>Meetup Fridge App
 		</div>
 
 		<div id="navwrapper" ontouchstart="scrollOnContent(event)" ontouchmove="scrollOnContent(event)" ontouchend="scrollOnContent(event)" ontouchcancel="scrollOnContent(event)" style="position:absolute;background-color:orange;width:320px;height:100%;left:0px;top:55px;z-index:0;">
