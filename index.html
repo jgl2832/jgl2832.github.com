@@ -100,6 +100,39 @@
 				height:55px;
 				z-index:10;
 			}
+			#navwrapper {
+				position:absolute;
+				background-color:white;
+				width:320px;
+				height:100%;
+				left:0px;
+				top:55px;
+				z-index:0;
+			}
+			#nav {
+				position:relative;
+				background-color:white;
+				width:320px;
+				height:auto;
+				z-index:1;
+			}
+			#mainbodywrapper {
+				position:absolute;
+				left:320px;
+				top:55px;
+				height:100%;
+				width:704px;
+				overflow:hidden;
+				background-color:white;
+				z-index:0;
+			}
+			#mainbody {
+				position:relative;
+				width:704px;
+				height:auto;
+				background-color:white;
+				z-index:1;
+			}
 		</style>
 	</head>
 	<body onload="setup()" onorientationchange="setup()">
@@ -107,8 +140,8 @@
 			<br>Meetup Fridge App
 		</div>
 
-		<div id="navwrapper" ontouchstart="scrollOnContent(event)" ontouchmove="scrollOnContent(event)" ontouchend="scrollOnContent(event)" ontouchcancel="scrollOnContent(event)" style="position:absolute;background-color:orange;width:320px;height:100%;left:0px;top:55px;z-index:0;">
-			<div id="nav" ontouchstart="scrollOnContent(event,'start','nav')" ontouchmove="scrollOnContent(event,'move','nav')" ontouchend="scrollOnContent(event,'end','nav')" ontouchcancel="scrollOnContent(event)" style="position:relative;background-color:yellow;width:320px;height:auto;z-index:1;">
+		<div id="navwrapper" ontouchstart="scrollOnContent(event)" ontouchmove="scrollOnContent(event)" ontouchend="scrollOnContent(event)" ontouchcancel="scrollOnContent(event)">
+			<div id="nav" ontouchstart="scrollOnContent(event,'start','nav')" ontouchmove="scrollOnContent(event,'move','nav')" ontouchend="scrollOnContent(event,'end','nav')" ontouchcancel="scrollOnContent(event)">
 				This should contain the navigation bar<br>
 				This should contain the navigation bar<br>
 				This should contain the navigation bar<br>
@@ -128,8 +161,8 @@
 			</div>
 		</div>
 
-		<div id="mainbodywrapper" ontouchstart="scrollOnContent(event)" ontouchmove="scrollOnContent(event)" ontouchend="scrollOnContent(event)" ontouchcancel="scrollOnContent(event)" style="position:absolute;left:320px;top:55px;height:100%;width:704px;overflow:hidden;background-color:pink;z-index:0;">
-			<div id="mainbody" ontouchstart="scrollOnContent(event,'start','mainbody')" ontouchmove="scrollOnContent(event,'move','mainbody')" ontouchend="scrollOnContent(event,'end','mainbody')" ontouchcancel="scrollOnContent(event)" style="position:relative;width:704;height:auto;background-color:silver;z-index:1;">
+		<div id="mainbodywrapper" ontouchstart="scrollOnContent(event)" ontouchmove="scrollOnContent(event)" ontouchend="scrollOnContent(event)" ontouchcancel="scrollOnContent(event)">
+			<div id="mainbody" ontouchstart="scrollOnContent(event,'start','mainbody')" ontouchmove="scrollOnContent(event,'move','mainbody')" ontouchend="scrollOnContent(event,'end','mainbody')" ontouchcancel="scrollOnContent(event)">
 				Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br>
 				Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br>
 			</div>
