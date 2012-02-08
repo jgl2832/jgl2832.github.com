@@ -8,9 +8,90 @@
 				event.preventDefault();
 			}
 
-			function setup() {
-				if(window.getElement
-			}
+var startfstouchY = 0;
+var endfstouchY = 0;
+var lastY = 0;
+var fY = 0;
+var lastpoll = 0;
+
+function setup() {
+  if (window.orientation == 0) {
+    document.getElementById("mainbodywrapper").style.width = "448px";
+    document.getElementById("mainbodywrapper").style.left = "320px";
+    document.getElementById("mainbody").style.width = "448px";
+    document.getElementById("mainbody").style.left = "0px";
+  } else if (window.orientation == 90 || window.orientation == -90) {
+    document.getElementById("mainbodywrapper").style.width = "704px";
+    document.getElementById("mainbodywrapper").style.left = "320px";
+    document.getElementById("mainbody").style.width = "704px";
+    document.getElementById("mainbody").style.left = "0px";
+  }
+}
+function scrollOnContent(event,action,idname) {
+  if (!(idname)) {
+    event.preventDefault(); 
+    event.stopPropagation();
+    return;
+  }
+  var obj = document.getElementById(idname);
+  obj.style.webkitTransition = "-webkit-transform 500ms cubic-bezier(0.1, 0.25, 0.1, 1.0)";
+  switch (action) {
+    case "start":
+      //---if multi-touch then exit---
+      if (event.touches.length > 1) return false;
+      //---get the point touched---
+      startfstouchY = event.touches[0].pageY;
+      //---get the last transform performed---
+      lastY = fY;
+      event.preventDefault(); 
+      event.stopPropagation();
+      break;
+    case "move":
+      if ((event.timeStamp - lastpoll) < 20) {
+        return;
+      } else {
+        lastpoll = event.timeStamp;
+      }
+      //---if multi-touch then exit---
+      if (event.touches.length > 1) return false;
+
+      //---get the distance between the original point touched and the current point---
+      curY = event.touches[0].pageY - startfstouchY;
+      endfstouchY = event.touches[0].pageY;
+      //---add the last transform to the current transform---
+      //---perform a translate---
+      if (fY > 50) { fY = 50; }
+      if (fY < (-1*obj.offsetHeight + 50)) {
+        fY = -1*obj.offsetHeight+50;
+      } else {
+        fY = lastY + curY;
+      }
+      obj.style.webkitTransform = 'translateY(' + fY + 'px)';
+      event.preventDefault(); 
+      event.stopPropagation();
+      break;
+    case "end":
+      //---get the point touched---
+      if (endfstouchY-startfstouchY > 10) {
+        fY = fY + 50;
+      } else if (endfstouchY-startfstouchY < -10) {
+        fY = fY - 50;
+      }
+      if (fY > 0) { fY = 0; }
+      if (fY < (-1*obj.offsetHeight + 50)) {
+        fY = -1*obj.offsetHeight+50;
+      }
+      obj.style.webkitTransform = 'translateY(' + fY + 'px)';
+//alert(obj.offsetHeight + ":" + obj.offsetTop + ":" + fY);
+      event.preventDefault(); 
+      event.stopPropagation();
+      break;
+    default:
+      event.preventDefault(); 
+      event.stopPropagation();
+      break;
+  }
+}
 		</script>
 		
 
