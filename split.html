@@ -1,0 +1,127 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=0;" />
+<script>
+var startfstouchY = 0;
+var endfstouchY = 0;
+var lastY = 0;
+var fY = 0;
+var lastpoll = 0;
+
+function setup() {
+  if (window.orientation == 0) {
+    document.getElementById("mainbodywrapper").style.width = "448px";
+    document.getElementById("mainbodywrapper").style.left = "320px";
+    document.getElementById("mainbody").style.width = "448px";
+    document.getElementById("mainbody").style.left = "0px";
+  } else if (window.orientation == 90 || window.orientation == -90) {
+    document.getElementById("mainbodywrapper").style.width = "704px";
+    document.getElementById("mainbodywrapper").style.left = "320px";
+    document.getElementById("mainbody").style.width = "704px";
+    document.getElementById("mainbody").style.left = "0px";
+  }
+}
+
+function scrollOnContent(event,action,idname) {
+  if (!(idname)) {
+    event.preventDefault(); 
+    event.stopPropagation();
+    return;
+  }
+  var obj = document.getElementById(idname);
+  obj.style.webkitTransition = "-webkit-transform 500ms cubic-bezier(0.1, 0.25, 0.1, 1.0)";
+  switch (action) {
+    case "start":
+      //---if multi-touch then exit---
+      if (event.touches.length > 1) return false;
+      //---get the point touched---
+      startfstouchY = event.touches[0].pageY;
+      //---get the last transform performed---
+      lastY = fY;
+      event.preventDefault(); 
+      event.stopPropagation();
+      break;
+    case "move":
+      if ((event.timeStamp - lastpoll) < 20) {
+        return;
+      } else {
+        lastpoll = event.timeStamp;
+      }
+      //---if multi-touch then exit---
+      if (event.touches.length > 1) return false;
+
+      //---get the distance between the original point touched and the current point---
+      curY = event.touches[0].pageY - startfstouchY;
+      endfstouchY = event.touches[0].pageY;
+      //---add the last transform to the current transform---
+      //---perform a translate---
+      if (fY > 50) { fY = 50; }
+      if (fY < (-1*obj.offsetHeight + 50)) {
+        fY = -1*obj.offsetHeight+50;
+      } else {
+        fY = lastY + curY;
+      }
+      obj.style.webkitTransform = 'translateY(' + fY + 'px)';
+      event.preventDefault(); 
+      event.stopPropagation();
+      break;
+    case "end":
+      //---get the point touched---
+      if (endfstouchY-startfstouchY > 10) {
+        fY = fY + 50;
+      } else if (endfstouchY-startfstouchY < -10) {
+        fY = fY - 50;
+      }
+      if (fY > 0) { fY = 0; }
+      if (fY < (-1*obj.offsetHeight + 50)) {
+        fY = -1*obj.offsetHeight+50;
+      }
+      obj.style.webkitTransform = 'translateY(' + fY + 'px)';
+//alert(obj.offsetHeight + ":" + obj.offsetTop + ":" + fY);
+      event.preventDefault(); 
+      event.stopPropagation();
+      break;
+    default:
+      event.preventDefault(); 
+      event.stopPropagation();
+      break;
+  }
+}
+
+</script>
+</head>
+<body onload="setup()" onorientationchange="setup()">
+<div id="titlebar" ontouchstart="scrollOnContent(event)" ontouchmove="scrollOnContent(event)" ontouchend="scrollOnContent(event)" ontouchcancel="scrollOnContent(event)" style="position:absolute;background-color: blue;left:0px;top:0px;width:100%;height:55px;z-index:10;">
+<br>TitleBar
+</div>
+
+<div id="navwrapper" ontouchstart="scrollOnContent(event)" ontouchmove="scrollOnContent(event)" ontouchend="scrollOnContent(event)" ontouchcancel="scrollOnContent(event)" style="position:absolute;background-color:orange;width:320px;height:100%;left:0px;top:55px;z-index:0;">
+  <div id="nav" ontouchstart="scrollOnContent(event,'start','nav')" ontouchmove="scrollOnContent(event,'move','nav')" ontouchend="scrollOnContent(event,'end','nav')" ontouchcancel="scrollOnContent(event)" style="position:relative;background-color:yellow;width:320px;height:auto;z-index:1;">
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+This should contain the navigation bar<br>
+  </div>
+</div>
+
+<div id="mainbodywrapper" ontouchstart="scrollOnContent(event)" ontouchmove="scrollOnContent(event)" ontouchend="scrollOnContent(event)" ontouchcancel="scrollOnContent(event)" style="position:absolute;left:320px;top:55px;height:100%;width:704px;overflow:hidden;background-color:pink;z-index:0;">
+  <div id="mainbody" ontouchstart="scrollOnContent(event,'start','mainbody')" ontouchmove="scrollOnContent(event,'move','mainbody')" ontouchend="scrollOnContent(event,'end','mainbody')" ontouchcancel="scrollOnContent(event)" style="position:relative;width:704;height:auto;background-color:silver;z-index:1;">
+Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br>
+Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br> Hey<br>
+  </div>
+</div>
+
+</body>
+</html>
